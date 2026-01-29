@@ -74,46 +74,36 @@ body {
 
 /* Carrossel */
 .carousel {
-  margin-top: 120px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 120px; /* espaço para o header */
   padding: 2rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto; /* evita ocupar altura da tela inteira */
 }
 
 .carousel-container {
-  position: relative;
+  position: relative; /* não deixa ocupar toda a tela */
   width: 100%;
   max-width: 1000px;
-  height: auto;
   margin: 0 auto;
 }
 
+/* Slides com fade */
 .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  max-width: 1000px;
-  height: auto;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 0;
-  margin: 0 auto;
+  display: none; /* esconde os não ativos */
+  justify-content: center;
+  align-items: center;
 }
 
 .slide.active {
-  opacity: 1;
-  z-index: 1;
+  display: flex; /* mostra só o ativo */
 }
 
 .slide img {
-  width: auto;
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  max-height: 500px; /* aumenta a altura visível */
-  object-fit: contain; /* mostra a imagem inteira sem cortar */
+  max-height: 500px; /* altura controlada */
+  object-fit: contain; /* evita corte */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
@@ -144,4 +134,50 @@ body {
 .dot.active {
   background-color: #ff7a00;
   transform: scale(1.2);
+}
+
+/* seção inferior */
+
+.beneficios-automacao {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.beneficios-automacao img {
+  max-width: 100%;
+  height: auto;
+}
+
+.beneficios-automacao h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ff7a00;
+}
+
+.beneficios-automacao p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ccc;
+}
+
+.beneficios-automacao > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.beneficios-automacao > div:last-child img {
+  width: 64px;
+  height: 64px;
+  transition: transform 0.3s ease;
+}
+
+.beneficios-automacao > div:last-child img:hover {
+  transform: scale(1.1);
 }
