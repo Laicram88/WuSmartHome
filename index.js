@@ -28,7 +28,7 @@ function goToSlide(index) {
   showSlide(currentIndex);
 }
 
-// autoplay
+// autoplay com fade
 setInterval(() => {
   currentIndex = (currentIndex + 1) % slides.length;
   showSlide(currentIndex);

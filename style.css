@@ -138,7 +138,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
-  padding: 2.55rem 1rem; /* aumenta o espaçamento interno */
+  padding: 2.70rem 1rem; /* aumenta o espaçamento interno */
   background-color: #dacfcf;
   color: #fff;
   box-sizing: border-box;
@@ -156,12 +156,36 @@ body {
   color: #000;
 }
 
+.botao-inteligente {
+  display: flex;
+  justify-content: center;
+  margin-left: 10rem;
+}
+
+.beneficios-texto {
+  max-width: 400px; /* limita a largura do bloco */
+  margin: 0 auto; /* centraliza dentro da coluna */
+  text-align: start; /* deixa alinhado */
+}
+
+.beneficios-texto h2 {
+  font-size: 1.8rem; /* reduz um pouco o tamanho */
+  margin-bottom: 0.5rem; /* menos espaço abaixo do título */
+  color: #ff7a00;
+}
+
+.beneficios-texto p {
+  font-size: 0.95rem; /* fonte menor */
+  line-height: 1.4; /* menos espaçamento entre linhas */
+  color: #000;
+}
+
 /* ícones com legenda */
 .beneficios-icons {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .icon-item {
@@ -169,22 +193,25 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: #ccc;
-  font-size: 0.9rem;
+  background-color: #fff;   /* fundo da caixa */
+  padding: 1rem 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(253, 143, 70, 0.959);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .icon-item img {
   width: 64px;
   height: 64px;
-  margin-bottom: 0.3rem;
-  transition: transform 0.3s ease;
-}
-
-.icon-item img:hover {
-  transform: scale(1.1);
 }
 
 .icon-item span {
   color: #000;
   font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.icon-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
