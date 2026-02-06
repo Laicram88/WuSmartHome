@@ -24,7 +24,7 @@ body {
 
 .header-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -102,7 +102,7 @@ body {
   height: 100%;
   object-fit: contain;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 8px rgba(253, 143, 70, 0.959);
 }
 
 /* Dots verticais */
@@ -138,15 +138,27 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
-  padding: 2.70rem 1rem; /* aumenta o espaçamento interno */
+  padding: 2.7rem 1rem; /* aumenta o espaçamento interno */
   background-color: #dacfcf;
   color: #fff;
   box-sizing: border-box;
 }
 
+.beneficios-automacao {
+  opacity: 0; /* invisível mas ocupa espaço */
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+  pointer-events: auto; /* mantém interação ativa */
+}
+
+.beneficios-wrapper:hover .beneficios-automacao {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .beneficios-automacao h2 {
   font-size: 2rem;
-  margin-bottom: 1rem;
   color: #ff7a00;
 }
 
@@ -183,9 +195,10 @@ body {
 /* ícones com legenda */
 .beneficios-icons {
   display: flex;
+  margin-right: 5rem;
   flex-direction: row;
   justify-content: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .icon-item {
@@ -193,11 +206,13 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: #fff;   /* fundo da caixa */
+  background-color: #fff; /* fundo da caixa */
   padding: 1rem 2.5rem;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(253, 143, 70, 0.959);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .icon-item img {
@@ -213,5 +228,5 @@ body {
 
 .icon-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
