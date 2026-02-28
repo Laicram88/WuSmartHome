@@ -85,3 +85,38 @@ iaInput.addEventListener("keypress", function (e) {
     }
   }
 });
+
+// Abrir e fechar IA Agent
+const iaAgent = document.getElementById("ia-agent");
+const chatBox = document.getElementById("ia-messages");
+const botaoInteligente = document.querySelector(".botao-inteligente");
+const iaClose = document.getElementById("ia-close");
+
+function addMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.textContent = sender + ": " + text;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Ao clicar no botão inteligente, abre o chat com mensagem personalizada
+botaoInteligente.addEventListener("click", () => {
+  if (iaAgent.style.display === "none" || iaAgent.style.display === "") {
+    iaAgent.style.display = "block";
+    iaAgent.style.opacity = "1";
+    chatBox.innerHTML = ""; // limpa mensagens anteriores
+    addMessage(
+      "IA",
+      "Você clicou no botão inteligente! Quer conhecer nossos serviços, tecnologias ou benefícios?",
+    );
+  } else {
+    iaAgent.style.opacity = "0";
+    setTimeout(() => (iaAgent.style.display = "none"), 400);
+  }
+});
+
+// Ao clicar no botão de fechar (X), fecha o chat
+iaClose.addEventListener("click", () => {
+  iaAgent.style.opacity = "0";
+  setTimeout(() => (iaAgent.style.display = "none"), 400);
+});
