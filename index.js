@@ -1,3 +1,6 @@
+/* =========================
+   Carrossel
+========================= */
 const slides = document.querySelectorAll(".slide");
 const dotsContainer = document.querySelector(".carousel-dots");
 let currentIndex = 0;
@@ -17,7 +20,6 @@ function showSlide(index) {
   slides.forEach((slide, i) => {
     slide.classList.toggle("active", i === index);
   });
-
   dots.forEach((dot, i) => {
     dot.classList.toggle("active", i === index);
   });
@@ -34,9 +36,13 @@ setInterval(() => {
   showSlide(currentIndex);
 }, 4000);
 
-// IA Agent
+/* =========================
+   Chatbox da IA
+========================= */
+const iaAgent = document.getElementById("ia-agent");
 const iaMessages = document.getElementById("ia-messages");
 const iaInput = document.getElementById("ia-input");
+const iaClose = document.getElementById("ia-close");
 
 // Função para adicionar mensagens
 function addMessage(sender, text) {
@@ -46,13 +52,15 @@ function addMessage(sender, text) {
   iaMessages.scrollTop = iaMessages.scrollHeight;
 }
 
-// Mensagem inicial
-addMessage(
-  "WuSmart",
-  "Olá! Eu sou sua assistente WuSmart. Posso te apresentar os serviços e benefícios da automação. O que você gostaria de conhecer?",
-);
+// Resposta inicial (aparece quando o chat é aberto)
+function mensagemInicial() {
+  addMessage(
+    "WuSmart",
+    "Olá! Eu sou sua assistente WuSmart. Posso te apresentar os serviços e benefícios da automação. O que você gostaria de conhecer?",
+  );
+}
 
-// Respostas simples
+// Enviar mensagem ao pressionar Enter
 iaInput.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     const userText = iaInput.value.trim();
@@ -86,29 +94,18 @@ iaInput.addEventListener("keypress", function (e) {
   }
 });
 
-// Abrir e fechar IA Agent
-const iaAgent = document.getElementById("ia-agent");
-const chatBox = document.getElementById("ia-messages");
+/* =========================
+   Botão inteligente
+========================= */
 const botaoInteligente = document.querySelector(".botao-inteligente");
-const iaClose = document.getElementById("ia-close");
 
-function addMessage(sender, text) {
-  const msg = document.createElement("div");
-  msg.textContent = sender + ": " + text;
-  chatBox.appendChild(msg);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-// Ao clicar no botão inteligente, abre o chat com mensagem personalizada
+// Ao clicar no botão inteligente, abre/fecha o chat
 botaoInteligente.addEventListener("click", () => {
   if (iaAgent.style.display === "none" || iaAgent.style.display === "") {
     iaAgent.style.display = "block";
     iaAgent.style.opacity = "1";
-    chatBox.innerHTML = ""; // limpa mensagens anteriores
-    addMessage(
-      "IA",
-      "Você clicou no botão inteligente! Quer conhecer nossos serviços, tecnologias ou benefícios?",
-    );
+    iaMessages.innerHTML = ""; // limpa mensagens anteriores
+    mensagemInicial();
   } else {
     iaAgent.style.opacity = "0";
     setTimeout(() => (iaAgent.style.display = "none"), 400);

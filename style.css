@@ -10,7 +10,9 @@ body {
   background-color: #2d2d2d;
 }
 
-/* Header fixo */
+/* =========================
+   Header fixo
+========================= */
 .site-header {
   background-color: #111;
   padding: 1rem 2rem;
@@ -65,7 +67,9 @@ body {
   background-color: #e96a00;
 }
 
-/* Carrossel */
+/* =========================
+   Carrossel
+========================= */
 .carousel {
   width: 100%;
   overflow: hidden;
@@ -78,7 +82,7 @@ body {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  height: 600px; /* altura fixa */
+  height: 600px;
 }
 
 .slide {
@@ -133,23 +137,19 @@ body {
   transform: scale(1.2);
 }
 
-/* seção inferior */
+/* =========================
+   Seção de benefícios
+========================= */
 .beneficios-automacao {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
-  padding: 2.7rem 1rem; /* aumenta o espaçamento interno */
+  padding: 2.7rem 1rem;
   background-color: #dacfcf;
-  color: #fff;
-  box-sizing: border-box;
-}
-
-.beneficios-automacao {
-  opacity: 0; /* invisível mas ocupa espaço */
   transition:
     opacity 1s ease,
     transform 1s ease;
-  pointer-events: auto; /* mantém interação ativa */
+  opacity: 0;
 }
 
 .beneficios-wrapper:hover .beneficios-automacao {
@@ -157,42 +157,24 @@ body {
   transform: translateY(0);
 }
 
-.beneficios-automacao h2 {
-  font-size: 2rem;
-  color: #ff7a00;
-}
-
-.beneficios-automacao p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #000;
-}
-
-.botao-inteligente {
-  display: flex;
-  justify-content: center;
-  margin-left: 10rem;
-}
-
 .beneficios-texto {
-  max-width: 400px; /* limita a largura do bloco */
-  margin: 0 auto; /* centraliza dentro da coluna */
-  text-align: start; /* deixa alinhado */
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: start;
 }
 
 .beneficios-texto h2 {
-  font-size: 1.8rem; /* reduz um pouco o tamanho */
-  margin-bottom: 0.5rem; /* menos espaço abaixo do título */
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
   color: #ff7a00;
 }
 
 .beneficios-texto p {
-  font-size: 0.95rem; /* fonte menor */
-  line-height: 1.4; /* menos espaçamento entre linhas */
+  font-size: 0.95rem;
+  line-height: 1.4;
   color: #000;
 }
 
-/* ícones com legenda */
 .beneficios-icons {
   display: flex;
   margin-right: 5rem;
@@ -206,7 +188,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: #fff; /* fundo da caixa */
+  background-color: #fff;
   padding: 1rem 2.5rem;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(253, 143, 70, 0.959);
@@ -231,7 +213,40 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-/* IA Agent */
+/* =========================
+   Botão inteligente
+========================= */
+.botao-inteligente {
+  margin-left: 3rem;
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  background: url("./img/botao.png") no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 0 15px rgba(233, 106, 0, 0.6);
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(233, 106, 0, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(233, 106, 0, 0.9);
+    transform: scale(1.1);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(233, 106, 0, 0.6);
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   Chatbox da IA
+========================= */
 #ia-agent {
   position: fixed;
   bottom: 20px;
@@ -245,6 +260,7 @@ body {
   overflow: hidden;
   display: none; /* começa escondido */
   transition: opacity 0.4s ease;
+  z-index: 9999;
 }
 
 #ia-header {
@@ -279,34 +295,4 @@ body {
   padding: 10px;
   outline: none;
   font-size: 0.9rem;
-}
-
-/* botao inteligente */
-
-.botao-inteligente {
-  width: 145px;
-  height: 145px;
-  border-radius: 50%;
-  background: url("./img/botao.png") no-repeat center;
-  background-size: contain;
-  cursor: pointer;
-  position: relative;
-  box-shadow: 0 0 15px rgba(233, 106, 0, 0.6);
-  animation: pulseGlow 2s infinite;
-}
-
-/* Animação de pulsar */
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 10px rgba(233, 106, 0, 0.6);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 0 25px rgba(233, 106, 0, 0.9);
-    transform: scale(1.1);
-  }
-  100% {
-    box-shadow: 0 0 10px rgba(233, 106, 0, 0.6);
-    transform: scale(1);
-  }
 }
