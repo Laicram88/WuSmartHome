@@ -117,3 +117,59 @@ iaClose.addEventListener("click", () => {
   iaAgent.style.opacity = "0";
   setTimeout(() => (iaAgent.style.display = "none"), 400);
 });
+
+// Botao "Inicie o seu projeto"
+
+const btnProjeto = document.getElementById("btn-projeto");
+const modalProjeto = document.getElementById("modal-projeto");
+const modalClose = document.getElementById("modal-close");
+
+btnProjeto.addEventListener("click", () => {
+  modalProjeto.style.display = "block"; // mostra o modal
+});
+
+modalClose.addEventListener("click", () => {
+  modalProjeto.style.display = "none"; // fecha ao clicar no X
+});
+
+window.addEventListener("click", (event) => {
+  if (event.target === modalProjeto) {
+    modalProjeto.style.display = "none"; // fecha ao clicar fora
+  }
+});
+
+/* Comando para o formulário de orçamento enviar os dados para o n8n */
+
+const formOrcamento = document.getElementById("form-orcamento");
+
+formOrcamento.addEventListener("submit", async (event) => {
+  event.preventDefault(); // evita recarregar a página
+
+  const dados = {
+    nome: formOrcamento.nome.value,
+    email: formOrcamento.email.value,
+    telefone: formOrcamento.telefone.value,
+    descricao: formOrcamento.descricao.value,
+  };
+
+  try {
+    const response = await fetch(
+      "https://devjungle.app.n8n.cloud/webhook/orcamento",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados),
+      },
+    );
+
+    if (response.ok) {
+      alert("Orçamento enviado com sucesso!");
+      formOrcamento.reset();
+      document.getElementById("modal-projeto").style.display = "none"; // fecha modal
+    } else {
+      alert("Erro ao enviar. Tente novamente.");
+    }
+  } catch (error) {
+    alert("Falha na conexão com o servidor.");
+  }
+});
