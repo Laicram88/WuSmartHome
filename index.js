@@ -138,7 +138,9 @@ window.addEventListener("click", (event) => {
   }
 });
 
-/* Comando para o formulário de orçamento enviar os dados para o n8n */
+/* Envio do formulário de orçamento via EmailJS */
+
+emailjs.init("HlH7yYWjzGVeOoQDf");
 
 const formOrcamento = document.getElementById("form-orcamento");
 
@@ -153,23 +155,12 @@ formOrcamento.addEventListener("submit", async (event) => {
   };
 
   try {
-    const response = await fetch(
-      "https://devjungle.app.n8n.cloud/webhook/orcamento",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados),
-      },
-    );
-
-    if (response.ok) {
-      alert("Orçamento enviado com sucesso!");
-      formOrcamento.reset();
-      document.getElementById("modal-projeto").style.display = "none"; // fecha modal
-    } else {
-      alert("Erro ao enviar. Tente novamente.");
-    }
+    await emailjs.send("service_ezwyl1q", "template_5t710kd", dados);
+    alert("Orçamento enviado com sucesso!");
+    formOrcamento.reset();
+    document.getElementById("modal-projeto").style.display = "none";
   } catch (error) {
-    alert("Falha na conexão com o servidor.");
+    alert("Erro ao enviar. Tente novamente.");
+    console.error(error);
   }
 });
