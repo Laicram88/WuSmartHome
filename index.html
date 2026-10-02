@@ -67,19 +67,19 @@
                 </p>
             </div>
             <div class="beneficios-icons">
-                <div class="icon-item">
+                <div class="icon-item" data-servico="iluminacao">
                     <img src="https://img.icons8.com/external-kosonicon-outline-kosonicon/64/E96A00/external-lightbulb-back-to-school-kosonicon-outline-kosonicon.png" alt="Iluminação" />
                     <span>Iluminação</span>
                 </div>
-                <div class="icon-item">
+                <div class="icon-item" data-servico="climatizacao">
                     <img src="https://img.icons8.com/windows/64/E96A00/smart-home-automation.png" alt="Climatização" />
                     <span>Climatização</span>
                 </div>
-                <div class="icon-item">
+                <div class="icon-item" data-servico="seguranca">
                     <img src="https://img.icons8.com/windows/64/E96A00/security-shield-green.png" alt="Segurança" />
                     <span>Segurança</span>
                 </div>
-                <div class="icon-item">
+                <div class="icon-item" data-servico="smarthome">
                     <img src="https://img.icons8.com/wired/64/E96A00/temperature-inside.png" alt="Smart Home" />
                     <span>Smart Home</span>
                 </div>
@@ -87,13 +87,35 @@
         </section>
     </div>
 
+    <!-- Chatbox da IA -->
     <div id="ia-agent" style="display: none;">
         <div id="ia-header">WuSmart <button id="ia-close">×</button></div>
         <div id="ia-messages"></div>
         <input type="text" id="ia-input" placeholder="Digite sua pergunta..." />
     </div>
 
-    <!--Formulário -->
+    <!-- Modal de Demonstração dos Serviços -->
+    <div id="modal-servico" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 500px; border: 1px solid #e96a00; box-shadow: 0 0 20px rgba(233, 106, 0, 0.4);">
+            <span id="modal-servico-close" class="close">&times;</span>
+            <h2 id="servico-titulo" style="color: #ff7a00; font-size: 1.4rem;">Título do Serviço</h2>
+            <p id="servico-descricao" style="margin-top: 10px; color: #ccc; line-height: 1.5; font-size: 0.95rem;"></p>
+
+            <div id="servico-recursos" style="margin-top: 15px; text-align: left; background: #12121c; padding: 15px; border-radius: 8px; border: 1px solid #3d3d5c;">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="btn-perguntar-ia" class="btn" style="flex: 1; background: #2a2a3d; border: 1px solid #e96a00; color: #fff; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">
+                    💬 Perguntar à IA
+                </button>
+                <button id="btn-cotar-servico" class="btn" style="flex: 1.2; background: #e96a00; border: none; color: #fff; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem;">
+                    Solicitar Orçamento
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulário de Orçamento -->
     <div id="modal-projeto" class="modal">
         <div class="modal-content">
             <span id="modal-close">&times;</span>

@@ -93,6 +93,19 @@ function mensagemInicial() {
   }
 }
 
+// Função para abrir o Chatbox e simular a pergunta do usuário vinda dos cards
+function abrirChatComPergunta(perguntaTexto) {
+  if (iaAgent) {
+    iaAgent.style.display = "flex";
+    iaAgent.style.opacity = "1";
+    mensagemInicial();
+
+    // Insere e envia a pergunta automaticamente
+    iaInput.value = perguntaTexto;
+    handleUserMessage();
+  }
+}
+
 async function handleUserMessage() {
   const userText = iaInput.value.trim();
   if (!userText) return;
@@ -150,7 +163,7 @@ function getLocalAgentReply(text) {
   }
   if (
     t.match(
-      /\b(som|audio|vídeo|video|home theater|tv|cinema|caixa de som|multiroom)\b/,
+      /\b(som|audio|vídeo|video|home theater|tv|cinema|caixa de som|multiroom|smart home|casa conectada)\b/,
     )
   ) {
     return "Projetamos sistemas de som ambiente (multiroom) e Home Theater de alta performance para tocar suas músicas e filmes em qualquer ambiente da casa com um toque.";
@@ -206,7 +219,7 @@ async function fetchOpenAIResponse() {
 }
 
 /* =========================
-   3. Eventos e Controles
+   3. Eventos do Chatbox
 ========================= */
 if (iaInput) {
   iaInput.addEventListener("keypress", (e) => {
@@ -240,7 +253,7 @@ if (iaClose) {
 }
 
 /* =========================
-   4. Modal & EmailJS
+   4. Modal "Inicie Seu Projeto" & EmailJS
 ========================= */
 const btnProjeto = document.getElementById("btn-projeto");
 const modalProjeto = document.getElementById("modal-projeto");
@@ -257,12 +270,6 @@ if (modalClose && modalProjeto) {
     modalProjeto.style.display = "none";
   });
 }
-
-window.addEventListener("click", (event) => {
-  if (event.target === modalProjeto) {
-    modalProjeto.style.display = "none";
-  }
-});
 
 emailjs.init("HlH7yYWjzGVeOoQDf");
 
@@ -287,5 +294,117 @@ if (formOrcamento) {
       alert("Erro ao enviar orçamento. Por favor, tente novamente.");
       console.error("Erro EmailJS:", error);
     }
+  });
+}
+
+/* =======================================================
+   5. Modal Interativo dos 4 Serviços + Integração com IA
+======================================================= */
+const conteudosServicos = {
+  iluminacao: {
+    titulo: "💡 Automação de Iluminação",
+    descricao:
+      "Transforme a atmosfera da sua casa com um toque ou comando de voz. Crie cenários personalizados para cada momento da sua rotina.",
+    perguntaIA: "Como funciona a automação de iluminação na prática?",
+    recursos: [
+      "🎬 <strong>Cenário Cinema:</strong> Dimeriza as luzes para 10% e acende a fita LED do painel.",
+      "🍷 <strong>Cenário Jantar:</strong> Luzes quentes e focadas na mesa para um ambiente aconchegante.",
+      "🌙 <strong>Modo Boa Noite:</strong> Desliga todas as luzes da casa com apenas um comando.",
+      "⚡ <strong>Economia:</strong> Desligamento automático em ambientes vazios com sensores.",
+    ],
+  },
+  climatizacao: {
+    titulo: "❄️ Climatização Inteligente",
+    descricao:
+      "Controle a temperatura ideal de todos os ambientes, mesmo antes de chegar em casa.",
+    perguntaIA:
+      "Quais as vantagens da climatização inteligente e ar-condicionado automatizado?",
+    recursos: [
+      "🚗 <strong>Geolocalização:</strong> O ar-condicionado liga automaticamente quando você se aproxima de casa.",
+      "🌡️ <strong>Ajuste Térmico Inteligente:</strong> Modula a temperatura durante a noite para um sono mais saudável.",
+      "📱 <strong>Controle Único:</strong> Gerencie todos os ares-condicionados pelo celular ou por voz.",
+    ],
+  },
+  seguranca: {
+    titulo: "🛡️ Segurança e Controle de Acesso",
+    descricao:
+      "Proteja seu patrimônio com tecnologia avançada de monitoramento e controle de acessos em tempo real.",
+    perguntaIA:
+      "Quais opções de fechaduras biométricas e câmeras de segurança vocês oferecem?",
+    recursos: [
+      "🔑 <strong>Fechaduras Biométricas:</strong> Abertura via digital, senha, tag ou celular de qualquer lugar.",
+      "📹 <strong>Câmeras com IA:</strong> Detecção de movimento com alertas instantâneos no smartphone.",
+      "🔔 <strong>Alarme Integrado:</strong> Sensores discretos de abertura de portas e janelas.",
+    ],
+  },
+  smarthome: {
+    titulo: "🏠 Casa Conectada (Smart Home)",
+    descricao:
+      "Integração total do seu imóvel: som ambiente, cortinas, iluminação e segurança em perfeita sintonia.",
+    perguntaIA:
+      "O que é preciso para transformar minha casa em uma Smart Home completa?",
+    recursos: [
+      "🗣️ <strong>Comando de Voz Universal:</strong> Compatível com Alexa, Google Home e Apple HomeKit.",
+      "☀️ <strong>Cortinas Automatizadas:</strong> Abertura automática ao nascer do sol para aproveitar a iluminação natural.",
+      "🔊 <strong>Som Ambiente (Multiroom):</strong> Músicas independentes tocando em cada cômodo.",
+    ],
+  },
+};
+
+const modalServico = document.getElementById("modal-servico");
+const modalServicoClose = document.getElementById("modal-servico-close");
+const servicoTitulo = document.getElementById("servico-titulo");
+const servicoDescricao = document.getElementById("servico-descricao");
+const servicoRecursos = document.getElementById("servico-recursos");
+const btnPerguntarIA = document.getElementById("btn-perguntar-ia");
+const btnCotarServico = document.getElementById("btn-cotar-servico");
+
+let perguntaAtualIA = "";
+
+// Associa o clique nos 4 cards
+document.querySelectorAll("[data-servico]").forEach((card) => {
+  card.addEventListener("click", () => {
+    const chave = card.getAttribute("data-servico");
+    const info = conteudosServicos[chave];
+
+    if (info) {
+      servicoTitulo.innerText = info.titulo;
+      servicoDescricao.innerText = info.descricao;
+      perguntaAtualIA = info.perguntaIA;
+
+      servicoRecursos.innerHTML = info.recursos
+        .map((r) => `<p style="margin-bottom: 8px;">${r}</p>`)
+        .join("");
+
+      if (modalServico) modalServico.style.display = "block";
+    }
+  });
+});
+
+if (modalServicoClose) {
+  modalServicoClose.addEventListener("click", () => {
+    modalServico.style.display = "none";
+  });
+}
+
+// Fechar modais ao clicar fora deles
+window.addEventListener("click", (event) => {
+  if (event.target === modalProjeto) modalProjeto.style.display = "none";
+  if (event.target === modalServico) modalServico.style.display = "none";
+});
+
+// Ação do Botão "Perguntar à IA" dentro do modal do serviço
+if (btnPerguntarIA) {
+  btnPerguntarIA.addEventListener("click", () => {
+    if (modalServico) modalServico.style.display = "none";
+    abrirChatComPergunta(perguntaAtualIA);
+  });
+}
+
+// Ação do Botão "Solicitar Orçamento" dentro do modal do serviço
+if (btnCotarServico) {
+  btnCotarServico.addEventListener("click", () => {
+    if (modalServico) modalServico.style.display = "none";
+    if (modalProjeto) modalProjeto.style.display = "block";
   });
 }

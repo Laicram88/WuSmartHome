@@ -429,3 +429,15 @@ body {
 #ia-input:focus {
   background: #33334d;
 }
+
+/* Cursor interativo para os 4 cards */
+[data-servico] {
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+[data-servico]:hover {
+  transform: translateY(-4px);
+}
