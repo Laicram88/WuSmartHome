@@ -6,7 +6,11 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html,
 body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* Trava estritamente qualquer vazamento horizontal */
   background-color: #2d2d2d;
 }
 
@@ -22,6 +26,7 @@ body {
   left: 0;
   right: 0;
   z-index: 99;
+  width: 100%;
 }
 
 .header-container {
@@ -34,6 +39,7 @@ body {
 
 .logo img {
   height: 40px;
+  max-width: 100%;
 }
 
 .nav-menu ul {
@@ -68,10 +74,9 @@ body {
 }
 
 /* =========================
-   Estilo do Formulário
+   Estilo do Formulário / Modais
 ========================= */
 
-/* Animação de entrada */
 @keyframes modalFade {
   from {
     opacity: 0;
@@ -84,7 +89,7 @@ body {
 }
 
 .modal {
-  display: none; /* escondido inicialmente */
+  display: none;
   position: fixed;
   z-index: 9999;
   left: 0;
@@ -93,6 +98,7 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -100,15 +106,15 @@ body {
   margin: 8% auto;
   padding: 25px;
   border-radius: 12px;
-  width: 420px;
+  width: 90%;
+  max-width: 420px;
   color: #fff;
   font-family: "Montserrat", sans-serif;
   box-shadow: 0 0 20px rgba(233, 106, 0, 0.6);
   border: 1px solid #e96a00;
-  animation: modalFade 0.6s ease-out; /* animação suave */
+  animation: modalFade 0.6s ease-out;
 }
 
-/* Inputs com efeito glow */
 .modal-content input,
 .modal-content textarea {
   width: 100%;
@@ -127,10 +133,9 @@ body {
 .modal-content textarea:focus {
   background: #33334d;
   border: 1px solid #e96a00;
-  box-shadow: 0 0 12px #e96a00; /* glow futurista */
+  box-shadow: 0 0 12px #e96a00;
 }
 
-/* Botão enviar com efeito neon */
 .modal-content button {
   background: #e96a00;
   color: #fff;
@@ -154,7 +159,6 @@ body {
 ========================= */
 .carousel {
   width: 100%;
-  overflow: hidden;
   position: relative;
   margin-top: 5rem;
 }
@@ -172,15 +176,16 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .slide.active {
   opacity: 1;
-  display: flex;
 }
 
 .slide img {
@@ -191,21 +196,21 @@ body {
   box-shadow: 0 2px 8px rgba(253, 143, 70, 0.959);
 }
 
-/* Dots verticais */
+/* Dots verticais na lateral direita */
 .carousel-dots {
   position: absolute;
-  right: 10px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  z-index: 10;
+  gap: 0.6rem;
+  z-index: 20; /* Garante que fiquem acima das imagens */
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background-color: #555;
   cursor: pointer;
@@ -216,27 +221,37 @@ body {
 
 .dot.active {
   background-color: #ff7a00;
-  transform: scale(1.2);
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(255, 122, 0, 0.8);
 }
 
 /* =========================
    Seção de benefícios
 ========================= */
+.beneficios-wrapper {
+  width: 100%;
+  overflow: hidden; /* Evita que animações de translação causem rolagem */
+}
+
 .beneficios-automacao {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
   padding: 2.7rem 1rem;
   background-color: #dacfcf;
-  transition:
-    opacity 1s ease,
-    transform 1s ease;
-  opacity: 0;
+  transition: opacity 0.8s ease;
+  opacity: 1; /* Padrão visível */
 }
 
-.beneficios-wrapper:hover .beneficios-automacao {
-  opacity: 1;
-  transform: translateY(0);
+/* Efeito de opacidade exclusivo para Computadores com ponteiro/mouse */
+@media (hover: hover) and (pointer: fine) {
+  .beneficios-automacao {
+    opacity: 0;
+  }
+
+  .beneficios-wrapper:hover .beneficios-automacao {
+    opacity: 1;
+  }
 }
 
 .beneficios-texto {
@@ -259,10 +274,10 @@ body {
 
 .beneficios-icons {
   display: flex;
-  margin-right: 5rem;
   flex-direction: row;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
+  padding-right: 1rem;
 }
 
 .icon-item {
@@ -271,7 +286,7 @@ body {
   align-items: center;
   text-align: center;
   background-color: #fff;
-  padding: 1rem 2.5rem;
+  padding: 1rem 1.5rem;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(253, 143, 70, 0.959);
   transition:
@@ -295,11 +310,9 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-/* =========================
-   Botão inteligente
-========================= */
+/* Botão inteligente */
 .botao-inteligente {
-  margin-left: 3rem;
+  margin: 0 auto;
   width: 145px;
   height: 145px;
   border-radius: 50%;
@@ -342,7 +355,7 @@ body {
   border: 1px solid #e96a00;
   font-family: "Montserrat", sans-serif;
   overflow: hidden;
-  display: none; /* O JS alterará para 'flex' ao abrir */
+  display: none;
   flex-direction: column;
   transition:
     opacity 0.4s ease,
@@ -384,7 +397,6 @@ body {
   background-color: #12121c;
 }
 
-/* Bolhas de mensagem do Chat */
 .ia-msg {
   max-width: 85%;
   padding: 8px 12px;
@@ -430,7 +442,6 @@ body {
   background: #33334d;
 }
 
-/* Cursor interativo para os 4 cards */
 [data-servico] {
   cursor: pointer;
   transition:
@@ -440,4 +451,98 @@ body {
 
 [data-servico]:hover {
   transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (REGRAS RESPONSIVAS PARA TABLETS E SMARTPHONES)
+   ========================================================================== */
+
+/* Tablets e Telas Médias (Até 992px) */
+@media (max-width: 992px) {
+  .beneficios-automacao {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .beneficios-texto {
+    text-align: center;
+  }
+
+  .beneficios-icons {
+    padding-right: 0;
+    flex-wrap: wrap;
+  }
+}
+
+/* Dispositivos Móveis / Celulares (Até 768px) */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 0.8rem 1rem;
+    position: relative;
+  }
+
+  .header-container {
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: center;
+  }
+
+  .nav-menu ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .nav-menu a {
+    font-size: 0.85rem;
+  }
+
+  .btn-contato {
+    display: inline-block;
+    width: 100%;
+    max-width: 250px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .carousel {
+    margin-top: 1rem;
+  }
+
+  .carousel-container {
+    height: 250px;
+  }
+
+  .slide img {
+    object-fit: cover;
+  }
+
+  .beneficios-icons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .icon-item {
+    padding: 0.8rem 0.5rem;
+  }
+
+  .icon-item img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .icon-item span {
+    font-size: 0.8rem;
+  }
+
+  #ia-agent {
+    width: calc(100% - 30px);
+    right: 15px;
+    left: 15px;
+    bottom: 15px;
+    height: 380px;
+  }
 }
